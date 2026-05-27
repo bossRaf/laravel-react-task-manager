@@ -1,2 +1,5 @@
 [phases.setup]
 nixPkgs = ["php84", "nodejs_22"]
+
+[variables]
+NIXPACKS_PHP_VERSION = "8.4"
