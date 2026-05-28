@@ -17,9 +17,8 @@ createInertiaApp({
         ),
     setup({ el, App, props }) {
         const root = createRoot(el);
-        const userId = (props.initialPage.props as any)?.auth?.user?.id ?? null;
         root.render(
-            <ThemeProvider userId={userId}>
+            <ThemeProvider>
                 <App {...props} />
             </ThemeProvider>,
         );

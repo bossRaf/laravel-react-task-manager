@@ -45,8 +45,7 @@ export default function AuthenticatedLayout({
     const navItems = isAdmin ? adminNavItems : userNavItems;
 
     const handleLogout = () => {
-        //router.post(route("logout"));
-        localStorage.removeItem(`theme_user_${auth.user.id}`);
+        localStorage.setItem("theme", "light");
         router.post(route("logout"));
     };
 
