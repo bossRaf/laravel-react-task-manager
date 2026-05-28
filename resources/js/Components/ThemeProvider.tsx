@@ -19,25 +19,32 @@ export function ThemeProvider({
     children: React.ReactNode;
     userId?: number | null;
 }) {
-    const storageKey = userId ? `theme_user_${userId}` : "theme_guest";
+    const getStorageKey = (id?: number | null) =>
+        id ? `theme_user_${id}` : null;
 
-    const [theme, setTheme] = useState<Theme>(() => {
-        if (!userId) return "light";
-        return (localStorage.getItem(storageKey) as Theme) || "light";
-    });
+    const getInitialTheme = (id?: number | null): Theme => {
+        if (!id) return "light";
+        return (localStorage.getItem(`theme_user_${id}`) as Theme) || "light";
+    };
+
+    const [theme, setTheme] = useState<Theme>(() => getInitialTheme(userId));
+
+    // When userId changes (login/logout), update theme
+    useEffect(() => {
+        const newTheme = getInitialTheme(userId);
+        setTheme(newTheme);
+    }, [userId]);
 
     useEffect(() => {
         const root = window.document.documentElement;
         root.classList.remove("light", "dark");
         root.classList.add(theme);
-        localStorage.setItem(storageKey, theme);
-    }, [theme, storageKey]);
 
-    // When user changes (login/logout), load their theme
-    useEffect(() => {
-        const saved = (localStorage.getItem(storageKey) as Theme) || "light";
-        setTheme(saved);
-    }, [storageKey]);
+        const key = getStorageKey(userId);
+        if (key) {
+            localStorage.setItem(key, theme);
+        }
+    }, [theme, userId]);
 
     const toggleTheme = () => {
         setTheme((prev) => (prev === "light" ? "dark" : "light"));
