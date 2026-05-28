@@ -1,6 +1,6 @@
 import { Head, Link, useForm } from "@inertiajs/react";
 import { CheckSquare, Eye, EyeOff, Loader2, Sun, Moon } from "lucide-react";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useState, useEffect } from "react";
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
@@ -22,6 +22,12 @@ export default function Login({ status }: { status?: string }) {
         password: "",
         remember: false,
     });
+
+    useEffect(() => {
+        localStorage.setItem("theme", "light");
+        document.documentElement.classList.remove("dark");
+        document.documentElement.classList.add("light");
+    }, []);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
