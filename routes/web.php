@@ -8,9 +8,17 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// });
+
 Route::get('/', function () {
-    return redirect()->route('login');
-});
+    return Inertia::render('Home');
+})->name('home');
+
+Route::get('/about', function () {
+    return Inertia::render('About');
+})->name('about');
 
 // Authenticated routes
 Route::middleware(['auth'])->group(function () {
