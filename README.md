@@ -1,58 +1,157 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📋 TaskManager
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A role-based task management web application built with **Laravel**, **React**, **Inertia.js**, and **shadcn/ui**. Designed for teams where administrators manage and assign tasks, and users stay informed through real-time notifications.
 
-## About Laravel
+🌐 **Live Demo:** [rafftaskmanager.up.railway.app](https://rafftaskmanager.up.railway.app)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 👑 Admin
 
-## Learning Laravel
+- Create, edit, and delete tasks
+- Assign and reassign tasks to specific users
+- Create new user accounts and set roles (Admin / User)
+- Promote or demote user roles
+- View all tasks across all users on the dashboard
+- Manage archived tasks — restore or permanently delete
+- Receive notifications when a user updates a task status
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 👤 User
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- View only their assigned tasks
+- Update the status of their assigned tasks (Pending → In Progress → Completed)
+- Receive notifications when:
+    - A new task is assigned to them
+    - Their task is deleted by admin
+    - Their task is reassigned to another user (with info on who it was reassigned to)
+- Update their own profile (name, email, password, avatar)
+- Personal dashboard showing their own task stats
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 🔔 Notifications
 
-## Agentic Development
+- Bell icon with unread count badge
+- Mark individual notifications as read
+- Mark all notifications as read at once
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 🗃️ Archive
+
+- Deleted tasks move to archive (soft delete)
+- Permanently deleted after 30 days automatically
+- Admin can restore or reassign tasks from archive
+
+### 🌗 Dark / Light Mode
+
+- Per-user theme preference
+- Persists across sessions
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer         | Technology                         |
+| ------------- | ---------------------------------- |
+| Backend       | Laravel 13 (PHP 8.4)               |
+| Frontend      | React 18 + TypeScript              |
+| Bridge        | Inertia.js                         |
+| UI Components | shadcn/ui + Tailwind CSS           |
+| Icons         | Lucide React                       |
+| Database      | MySQL                              |
+| File Storage  | Laravel Storage (public disk)      |
+| Email         | Mailtrap (dev) / SMTP (production) |
+| Deployment    | Railway                            |
+
+---
+
+## 🚀 Getting Started (Local)
+
+### Prerequisites
+
+- PHP 8.4+
+- Composer
+- Node.js 18+
+- MySQL (XAMPP or any local setup)
+
+### Installation
 
 ```bash
-composer require laravel/boost --dev
+# Clone the repository
+git clone https://github.com/bossRaf/laravel-react-task-manager
+cd laravel-react-task-manager
 
-php artisan boost:install
+# Install PHP dependencies
+composer install
+
+# Install Node dependencies
+npm install
+
+# Copy environment file
+cp .env.example .env
+
+# Generate app key
+php artisan key:generate
+
+# Configure your database in .env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=task_manager
+DB_USERNAME=root
+DB_PASSWORD=
+
+# Run migrations and seed
+php artisan migrate --seed
+
+# Link storage
+php artisan storage:link
+
+# Start dev servers
+composer run dev
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Default Accounts (after seeding)
 
-## Contributing
+| Role  | Email             | Password |
+| ----- | ----------------- | -------- |
+| Admin | admin@example.com | password |
+| User  | user@example.com  | password |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🔐 Role & Permission Summary
 
-## Security Vulnerabilities
+| Feature                    | Admin | User |
+| -------------------------- | ----- | ---- |
+| View Dashboard (all tasks) | ✅    | ❌   |
+| View Dashboard (own tasks) | ✅    | ✅   |
+| Create Tasks               | ✅    | ❌   |
+| Edit Tasks (full)          | ✅    | ❌   |
+| Update Task Status         | ✅    | ✅   |
+| Delete Tasks               | ✅    | ❌   |
+| Assign / Reassign Tasks    | ✅    | ❌   |
+| Manage Archive             | ✅    | ❌   |
+| Manage Users               | ✅    | ❌   |
+| Edit Own Profile           | ✅    | ✅   |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 📸 Screenshots
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+> _Coming soon_
+
+---
+
+## 👨‍💻 Author
+
+**Raff** — [@bossRaf](https://github.com/bossRaf)
+
+> Built with ☕ and a lot of debugging sessions.
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
