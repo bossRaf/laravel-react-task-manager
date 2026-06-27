@@ -138,12 +138,6 @@ composer run dev
 
 ---
 
-## 📸 Screenshots
-
-> _Coming soon_
-
----
-
 ## 👨‍💻 Author
 
 **Raff** — [@bossRaf](https://github.com/bossRaf)

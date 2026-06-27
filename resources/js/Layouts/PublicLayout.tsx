@@ -116,7 +116,7 @@ export default function PublicLayout({
                             rel="noopener noreferrer"
                             className="text-primary hover:underline"
                         >
-                            Raff
+                            Raffy Maluya
                         </a>
                         .
                     </p>
