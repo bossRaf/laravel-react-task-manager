@@ -11,6 +11,10 @@ export default function PublicLayout({
 }) {
     const { theme, toggleTheme } = useTheme();
     const [menuOpen, setMenuOpen] = useState(false);
+    const navItems = [
+        { href: route("home"), label: "Home" },
+        { href: route("about"), label: "About" },
+    ];
 
     return (
         <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -27,19 +31,25 @@ export default function PublicLayout({
                     </Link>
 
                     {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-6">
-                        <Link
-                            href={route("home")}
-                            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                            Home
-                        </Link>
-                        <Link
-                            href={route("about")}
-                            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                            About
-                        </Link>
+                    <nav className="hidden md:flex items-center gap-3">
+                        {navItems.map((item) => {
+                            const isActive =
+                                window.location.pathname ===
+                                new URL(item.href).pathname;
+                            return (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                                        isActive
+                                            ? "bg-primary text-primary-foreground"
+                                            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                                    }`}
+                                >
+                                    {item.label}
+                                </Link>
+                            );
+                        })}
                     </nav>
 
                     {/* Right Side */}

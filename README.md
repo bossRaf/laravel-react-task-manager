@@ -2,8 +2,6 @@
 
 A role-based task management web application built with **Laravel**, **React**, **Inertia.js**, and **shadcn/ui**. Designed for teams where administrators manage and assign tasks, and users stay informed through real-time notifications.
 
-🌐 **Live Demo:** [rafftaskmanager.up.railway.app](https://rafftaskmanager.up.railway.app)
-
 ---
 
 ## ✨ Features
